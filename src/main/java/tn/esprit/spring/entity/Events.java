@@ -10,9 +10,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity 
 @Table(name = "T_Events")
@@ -26,7 +29,9 @@ public class Events implements Serializable {
 	@Column(name="Event_Name")
 	private String event_name;
 	
-	
+	@ManyToOne
+    @JoinColumn(name = "Kindergarten_id")
+    private Kindergarten kindergarten;
 	
 	@Column(name="Type")
 	private String type;
@@ -75,6 +80,20 @@ public class Events implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
+	public Events(String event_name, String type, Date date) {
+		super();
+		this.event_name = event_name;
+		this.type = type;
+		this.date = date;
+	}
+
+
+	public Events() {
+		super();
+	}
+	
 	
 	
 }

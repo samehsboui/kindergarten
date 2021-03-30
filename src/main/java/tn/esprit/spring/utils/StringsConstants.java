@@ -39,4 +39,6 @@ public class StringsConstants {
 	public static final String USER_URL = "/api/user";
 	public static final String PASSWORD_URL = "/api/password";
 	public static final String PROFILE_URL = "/api/profile";
+	public static final String EVENTS_URL = "/api/envents";
+
 }
