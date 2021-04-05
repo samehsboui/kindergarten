@@ -4,9 +4,9 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class CreateEventsRequest {
+import tn.esprit.spring.entity.Kindergarten;
 
-	private long id;
+public class CreateEventsRequest {
 
 	private String event_name;
 
@@ -14,14 +14,8 @@ public class CreateEventsRequest {
 
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date date;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	
+	private Kindergarten kindergarten;
 
 	public String getEvent_name() {
 		return event_name;
@@ -46,8 +40,13 @@ public class CreateEventsRequest {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
 
+	public Kindergarten getKindergarten() {
+		return kindergarten;
+	}
+
+	public void setKindergarten(Kindergarten kindergarten) {
+		this.kindergarten = kindergarten;
+	}
 
 }

@@ -1,7 +1,6 @@
 package tn.esprit.spring.service.impl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +12,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.dto.request.CreateEventsRequest;
 import tn.esprit.spring.dto.response.ResponseMessage;
 import tn.esprit.spring.entity.Events;
+import tn.esprit.spring.entity.Kindergarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.EventsRepository;
 import tn.esprit.spring.service.EventsService;
+import tn.esprit.spring.service.KindergartenService;
 import tn.esprit.spring.service.UserService;
+import tn.esprit.spring.utils.StringsConstants;
 
 
 
@@ -33,6 +36,9 @@ public class EventsServiceImpl implements EventsService {
 
 	@Autowired
 	private EventsService eventsService;
+	
+	@Autowired
+	private KindergartenService kindergartenService;
 
 	@Override
 	public List<Events> getMyEvents(Long userId) {
@@ -73,20 +79,18 @@ public class EventsServiceImpl implements EventsService {
 	}
 
 	@Override
-	public ResponseEntity<?> createEvents(CreateEventsRequest createEventsRequest)
-			throws ParseException {
-		Optional<User> user = userService
-				.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+	public ResponseEntity<?> createEvents(CreateEventsRequest createEventsRequest) throws ParseException {
+		Optional<Kindergarten> kindergarten = kindergartenService.findById(createEventsRequest.getKindergarten().getId());
 		
 
-		if (!user.isPresent()) {
-			return new ResponseEntity<>(new ResponseMessage(StringsConstants.USER_NOT_EXIST), HttpStatus.NOT_FOUND);
+		if (!kindergarten.isPresent()) {
+			return new ResponseEntity<>(new ResponseMessage("kindergarten Not found"), HttpStatus.NOT_FOUND);
 		}
 
 		try {
-			
-			Events.setUser(user.get());
-			EventsService.create(events);
+			Events events = new Events(createEventsRequest.getEvent_name(), kindergarten.get(), 
+					createEventsRequest.getType(), createEventsRequest.getDate());
+			eventsRepository.save(events);
 			return new ResponseEntity<>(new ResponseMessage("Events added successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

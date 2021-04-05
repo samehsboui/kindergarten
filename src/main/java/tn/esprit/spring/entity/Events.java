@@ -82,16 +82,17 @@ public class Events implements Serializable {
 	}
 
 
-	public Events(String event_name, String type, Date date) {
+	public Events() {
 		super();
-		this.event_name = event_name;
-		this.type = type;
-		this.date = date;
 	}
 
 
-	public Events() {
+	public Events(String event_name, Kindergarten kindergarten, String type, Date date) {
 		super();
+		this.event_name = event_name;
+		this.kindergarten = kindergarten;
+		this.type = type;
+		this.date = date;
 	}
 	
 	

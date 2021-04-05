@@ -10,7 +10,7 @@ import tn.esprit.spring.dto.response.ResponseMessage;
 import tn.esprit.spring.entity.Events;
 
 
-public class EventsService {
+public interface EventsService {
 	
 	public List<Events> getMyEvents(Long id);
 

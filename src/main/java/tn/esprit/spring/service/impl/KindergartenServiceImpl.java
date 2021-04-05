@@ -68,9 +68,7 @@ public class KindergartenServiceImpl implements KindergartenService {
 		}
 		kindergarten = kindergartenService.getMyKindergarten(user.get().getId());
 		kindergarten.forEach(kdg -> {
-//			kdg.setUser(null);
-//			kdg.getMedecin().setEtablissement(null);
-//			kdg.getMedecin().setRendezVous(null);
+
 		});
 		return new ResponseEntity<>(kindergarten, HttpStatus.OK);
 	}
@@ -78,22 +76,28 @@ public class KindergartenServiceImpl implements KindergartenService {
 	@Override
 	public ResponseEntity<?> createKindergarten(CreateKindergartenRequest createKindergartenRequest)
 			throws ParseException {
-		Optional<User> user = userService
-				.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		Optional<User> user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
+		if (!user.isPresent()) {
+			return new ResponseEntity<>(new ResponseMessage(""), HttpStatus.NOT_FOUND);
+		}
 		try {
 
 			Kindergarten kindergarten = new Kindergarten(createKindergartenRequest.getAdresse(),
 					createKindergartenRequest.getEmail(), createKindergartenRequest.getName(),
 					createKindergartenRequest.getPhone_number());
-
-			kindergartenService.create(kindergarten);
+			kindergartenRepository.save(kindergarten);
 			return new ResponseEntity<>(new ResponseMessage("kindergarten added successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(new ResponseMessage("Error during creating kindergarten"),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Override
+	public Optional<Kindergarten> findById(long id) {
+		return kindergartenRepository.findById(id);
 	}
 
 }

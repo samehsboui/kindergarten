@@ -2,6 +2,7 @@ package tn.esprit.spring.service;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
@@ -23,4 +24,6 @@ public interface KindergartenService {
 	public ResponseEntity<?> createKindergarten(CreateKindergartenRequest createKindergartenRequest) throws ParseException;
 
 	public void create(Kindergarten kindergarten);
+
+	public Optional<Kindergarten> findById(long id);
 }
