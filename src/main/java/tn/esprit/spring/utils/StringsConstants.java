@@ -25,7 +25,7 @@ public class StringsConstants {
 	// Csrf Strings
 	public static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 	public static final String[] CSRF_IGNORE = { "/api/auth/**", "/api/password/**", 
-			"/api/profile/**", "/api/user/**",  "/api/events/**", "/api/kindergarten/**" };
+			"/api/profile/**", "/api/user/**",  "/api/events/**", "/api/kindergarten/**","/api/feedback/**" };
 
 	// Mail Strings
 	public static final String RESET_PASSWORD_MAIL = "reset-password-email";
@@ -42,6 +42,7 @@ public class StringsConstants {
 	public static final String PROFILE_URL = "/api/profile";
 	public static final String EVENTS_URL = "/api/events";
 	public static final String KINDERGARTEN_URL = "/api/kindergarten";
+	public static final String FEEDBACK_URL = "/api/feedback";
 
 
 }
