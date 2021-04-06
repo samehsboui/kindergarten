@@ -6,18 +6,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.dto.request.CreateEventsRequest;
 import tn.esprit.spring.dto.response.ResponseMessage;
 import tn.esprit.spring.entity.Events;
+import tn.esprit.spring.entity.Feedback;
 import tn.esprit.spring.entity.Kindergarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.EventsRepository;
+import tn.esprit.spring.repository.FeedbackRepository;
 import tn.esprit.spring.service.EventsService;
 import tn.esprit.spring.service.KindergartenService;
 import tn.esprit.spring.service.UserService;
@@ -28,8 +33,14 @@ import tn.esprit.spring.utils.StringsConstants;
 @Service
 public class EventsServiceImpl implements EventsService {
 
+	
+	
+	 
 	@Autowired
 	private EventsRepository eventsRepository;
+	
+	@Autowired
+	private FeedbackRepository feedbackRepository;
 
 	@Autowired
 	private UserService userService;
@@ -81,16 +92,31 @@ public class EventsServiceImpl implements EventsService {
 	@Override
 	public ResponseEntity<?> createEvents(CreateEventsRequest createEventsRequest) throws ParseException {
 		Optional<Kindergarten> kindergarten = kindergartenService.findById(createEventsRequest.getKindergarten().getId());
-		
+		// Optional<Feedback> feedback = feedbackRepository.findById(createEventsRequest.getFeedback().getId());
+
 
 		if (!kindergarten.isPresent()) {
 			return new ResponseEntity<>(new ResponseMessage("kindergarten Not found"), HttpStatus.NOT_FOUND);
 		}
 
 		try {
-			Events events = new Events(createEventsRequest.getEvent_name(), kindergarten.get(), 
+			Events events = new Events(createEventsRequest.getEvent_name(), kindergarten.get(),
 					createEventsRequest.getType(), createEventsRequest.getDate());
 			eventsRepository.save(events);
+			
+//			 MimeMessage message = sender.createMimeMessage();
+//		        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//		        try {
+//		            helper.setTo("rakiadaly73@gmail.com");
+//		            helper.setText("Greetings :)");
+//		            helper.setSubject("Mail From Kindergarten");
+//		        } catch (MessagingException e) {
+//		            e.printStackTrace();
+//		            
+//		        }
+//		        sender.send(message);
+	        
 			return new ResponseEntity<>(new ResponseMessage("Events added successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

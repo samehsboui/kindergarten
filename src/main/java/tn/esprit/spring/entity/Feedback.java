@@ -43,12 +43,12 @@ public class Feedback implements Serializable{
 	@Column(name="note_experience")
 	private int note_experience;
 	
-	@ManyToOne
-    @JoinColumn(name = "Event_id")
-    private Events events;
+//	@ManyToOne
+//    @JoinColumn(name = "Event_id")
+//    private Events events;
 
 	public Feedback(Date date, int note_ambiance, int note_emplacement, int note_organisation, int note_objectifsEvent,
-			int note_experience, Events events) {
+			int note_experience) {
 		super();
 		this.date = date;
 		this.note_ambiance = note_ambiance;
@@ -56,7 +56,7 @@ public class Feedback implements Serializable{
 		this.note_organisation = note_organisation;
 		this.note_objectifsEvent = note_objectifsEvent;
 		this.note_experience = note_experience;
-		this.events = events;
+		// this.events = events;
 	}
 
 	public Feedback() {
@@ -119,13 +119,13 @@ public class Feedback implements Serializable{
 		this.note_experience = note_experience;
 	}
 
-	public Events getEvents() {
-		return events;
-	}
-
-	public void setEvents(Events events) {
-		this.events = events;
-	}
+//	public Events getEvents() {
+//		return events;
+//	}
+//
+//	public void setEvents(Events events) {
+//		this.events = events;
+//	}
 
 	
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import tn.esprit.spring.entity.Feedback;
 import tn.esprit.spring.entity.Kindergarten;
 
 public class CreateEventsRequest {
@@ -16,6 +17,7 @@ public class CreateEventsRequest {
 	private Date date;
 	
 	private Kindergarten kindergarten;
+	 // private Feedback feedback;
 
 	public String getEvent_name() {
 		return event_name;
@@ -48,5 +50,13 @@ public class CreateEventsRequest {
 	public void setKindergarten(Kindergarten kindergarten) {
 		this.kindergarten = kindergarten;
 	}
+
+//	public Feedback getFeedback() {
+//		return feedback;
+//	}
+//
+//	public void setFeedback(Feedback feedback) {
+//		this.feedback = feedback;
+//	}
 
 }

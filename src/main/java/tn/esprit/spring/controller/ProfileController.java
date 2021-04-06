@@ -24,7 +24,6 @@ import tn.esprit.spring.dto.response.ResponseMessage;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.UserService;
 import tn.esprit.spring.utils.StringsConstants;
-
 import io.swagger.annotations.Api;
 
 @CrossOrigin(origins = StringsConstants.FRONT_BASE_URL, maxAge = 3600)

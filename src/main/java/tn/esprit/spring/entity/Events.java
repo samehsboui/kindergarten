@@ -36,9 +36,9 @@ public class Events implements Serializable {
     @JoinColumn(name = "Kindergarten_id")
     private Kindergarten kindergarten;
 	
-	@OneToMany(targetEntity = Feedback.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
-	private Set<Feedback> feedback;
-	
+//	@OneToMany(targetEntity = Feedback.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
+//	private Feedback feedback;
+//	
 	@Column(name="Type")
 	private String type;
 	
@@ -97,9 +97,12 @@ public class Events implements Serializable {
 		super();
 		this.event_name = event_name;
 		this.kindergarten = kindergarten;
+//		this.feedback = feedback;
 		this.type = type;
 		this.date = date;
 	}
+
+
 	
 	
 	
