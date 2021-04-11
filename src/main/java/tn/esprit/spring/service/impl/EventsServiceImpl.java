@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.ValidationException;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import tn.esprit.spring.dto.request.CreateEventsRequest;
 import tn.esprit.spring.dto.response.ResponseMessage;
@@ -34,7 +38,9 @@ import tn.esprit.spring.utils.StringsConstants;
 public class EventsServiceImpl implements EventsService {
 
 	
-	
+	private EmailCfg emailCfg;
+
+   
 	 
 	@Autowired
 	private EventsRepository eventsRepository;
@@ -104,18 +110,8 @@ public class EventsServiceImpl implements EventsService {
 					createEventsRequest.getType(), createEventsRequest.getDate());
 			eventsRepository.save(events);
 			
-//			 MimeMessage message = sender.createMimeMessage();
-//		        MimeMessageHelper helper = new MimeMessageHelper(message);
-//
-//		        try {
-//		            helper.setTo("rakiadaly73@gmail.com");
-//		            helper.setText("Greetings :)");
-//		            helper.setSubject("Mail From Kindergarten");
-//		        } catch (MessagingException e) {
-//		            e.printStackTrace();
-//		            
-//		        }
-//		        sender.send(message);
+			
+		    
 	        
 			return new ResponseEntity<>(new ResponseMessage("Events added successfully"), HttpStatus.OK);
 		} catch (Exception e) {
@@ -123,5 +119,6 @@ public class EventsServiceImpl implements EventsService {
 			return new ResponseEntity<>(new ResponseMessage("Error during creating Events"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 
 }
